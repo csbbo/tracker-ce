@@ -39,7 +39,7 @@ class _VerifyPageState extends State<VerifyPage> {
                       borderRadius: BorderRadius.circular(0.0),
                     )
                 ),
-                child: const Text("登录", style: TextStyle(fontSize: 20),),
+                child: const Text("登录/注册", style: TextStyle(fontSize: 20),),
               ),
             ),
           ],

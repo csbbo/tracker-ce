@@ -27,8 +27,7 @@ class PersonProfile extends StatelessWidget {
         horizontal: 5,
         vertical: 20,
       ),
-      decoration:
-          BoxDecoration(border: Border.all(color: Colors.grey, width: 0.3)),
+      decoration: BoxDecoration(border: Border.all(color: Colors.grey, width: 0.3)),
       child: Row(
         children: <Widget>[
           ClipRRect(
