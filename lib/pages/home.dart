@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tracker/pages/login.dart';
 import 'package:tracker/pages/publish.dart';
 
 import 'discover.dart';
@@ -9,10 +10,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: const <Widget>[
-      TopPanel(),
-      HotOperation(),
-    ]);
+    return Column(
+      children: [
+        TopPanel(),
+        HotOperation(),
+        Container(
+          child: ElevatedButton(
+              onPressed: () {
+                Get.to(LoginPage());
+              },
+              child: Text("临时跳转登录页")
+          ),
+        )
+      ]
+    );
   }
 }
 
@@ -36,7 +47,6 @@ class TopPanel extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Container(),
                   Container(
                     child: const Icon(
                       Icons.message_outlined,

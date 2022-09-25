@@ -4,7 +4,12 @@ import 'package:tracker/pages/chat.dart';
 import 'package:tracker/pages/home.dart';
 import 'package:tracker/pages/person.dart';
 
-void main() {
+import 'common/utils/user_preference.dart';
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserPreferences.init();
+
   runApp(const MyApp());
 }
 

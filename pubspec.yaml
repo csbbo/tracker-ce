@@ -32,6 +32,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # 缓存
+  shared_preferences: ^2.0.15
   # get x
   get: 4.6.5
   # 高德定位

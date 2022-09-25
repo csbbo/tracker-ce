@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tracker/pages/verify.dart';
 
+import '../common/utils/user_preference.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -10,7 +12,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String phoneNumber = "";
   bool isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    phoneNumber = UserPreferences.getPhoneNumber() ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +32,16 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Column(
           children: [
-            const TextField(
-              style: TextStyle(fontSize: 28, color: Colors.black87),
+            TextFormField(
+              initialValue: phoneNumber,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "请输入手机号"
+              ),
+              style: const TextStyle(fontSize: 20, color: Colors.black87),
+              onChanged: (inputText) => setState(() {
+                phoneNumber = inputText;
+              }),
             ),
             Container(
               margin: const EdgeInsets.symmetric(
@@ -33,7 +50,8 @@ class _LoginPageState extends State<LoginPage> {
               width: double.infinity,
               height: 45,
               child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    await UserPreferences.setPhoneNumber(phoneNumber);
                     Get.to(VerifyPage());
                   },
                   style: ElevatedButton.styleFrom(
