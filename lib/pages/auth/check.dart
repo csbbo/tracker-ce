@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class VerifyPage extends StatefulWidget {
-  const VerifyPage({Key? key}) : super(key: key);
+class CheckPage extends StatefulWidget {
+  const CheckPage({Key? key}) : super(key: key);
 
   @override
-  State<VerifyPage> createState() => _VerifyPageState();
+  State<CheckPage> createState() => _CheckPageState();
 }
 
-class _VerifyPageState extends State<VerifyPage> {
+class _CheckPageState extends State<CheckPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

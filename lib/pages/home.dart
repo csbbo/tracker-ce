@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tracker/pages/login.dart';
+import 'package:tracker/pages/auth/login.dart';
 import 'package:tracker/pages/publish.dart';
 
 import 'discover.dart';
