@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return () async {
       await UserPreferences.setPhoneNumber(phoneNumber);
-      Get.to(const CheckPage());
+      Get.to(const CheckPage(), arguments: phoneNumber);
     };
   }
 

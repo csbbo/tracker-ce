@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tracker/components/opt_input.dart';
+import 'package:tracker/components/time_count_down.dart';
 
 class CheckPage extends StatefulWidget {
   const CheckPage({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class _CheckPageState extends State<CheckPage> {
 
   @override
   Widget build(BuildContext context) {
+    final phoneNumber = Get.arguments;
+
     return Scaffold(
       // appBar: AppBar(
       // ),
@@ -30,20 +34,21 @@ class _CheckPageState extends State<CheckPage> {
           children: [
             Container(
               margin: const EdgeInsets.only(bottom: 20),
-              child: const Text.rich(
+              child: Text.rich(
                   TextSpan(
                       children: [
-                        TextSpan(
+                        const TextSpan(
                             text: "验证码已通过短信发送至 ",
                             style: TextStyle(color: Color(0xFF616161))
                         ),
                         TextSpan(
-                            text: "+86 139 7890 1767",
-                            style: TextStyle(color: Colors.black, fontSize: 15)
+                            text: "+86 $phoneNumber",
+                            style: const TextStyle(color: Colors.black, fontSize: 15)
                         )
                       ]
                   )
               ),
+              // child: TextVar(content: phoneNumber?? "",),
             ),
             Container(
               padding: const EdgeInsets.only(
@@ -65,8 +70,7 @@ class _CheckPageState extends State<CheckPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  child: Text("重新发送", style: TextStyle(color: Color(0xFF26a69a)),),
-                  // child: Text("59 秒后重试", style: TextStyle(color: Color(0xFF616161))),
+                  child: TimeCountDown(onTimeStart: () {}, onTimeFinish: () {}, countDownTime: 60),
                 ),
               ],
             ),
@@ -79,7 +83,7 @@ class _CheckPageState extends State<CheckPage> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  print("#####################");
+                  print("#"*100);
                   print(_firstController.text);
                   print(_secondController.text);
                   print(_thirdController.text);

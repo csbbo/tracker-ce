@@ -6,6 +6,7 @@ import 'package:tracker/pages/person.dart';
 
 import 'common/utils/user_preference.dart';
 
+// todo: 颜色统一风格
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserPreferences.init();
