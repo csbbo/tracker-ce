@@ -83,11 +83,19 @@ class _CheckPageState extends State<CheckPage> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  print("#"*100);
-                  print(_firstController.text);
-                  print(_secondController.text);
-                  print(_thirdController.text);
-                  print(_fourthController.text);
+                  if (_firstController.text == "" || _secondController.text == "" || _thirdController.text == "" || _fourthController.text == "") {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text("请输入完整验证码"),
+                        action: SnackBarAction(
+                          label: "",
+                          onPressed: () {},
+                        ),
+                      ),
+                    );
+                  } else {
+                    print("*"*100);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                     disabledBackgroundColor: const Color(0xFF80CBC4),
