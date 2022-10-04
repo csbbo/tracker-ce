@@ -21,7 +21,6 @@ class _TimeCountDownState extends State<TimeCountDown> {
   void dispose() {
     super.dispose();
     _timer?.cancel();
-    print("*"*100);
   }
 
   @override

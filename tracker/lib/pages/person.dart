@@ -1,4 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' hide Response;
+import 'package:tracker/common/utils/user_preference.dart';
+import 'package:tracker/main.dart';
 
 class PersonPage extends StatelessWidget {
   const PersonPage({super.key});
@@ -9,7 +13,8 @@ class PersonPage extends StatelessWidget {
       children: const <Widget>[
         PersonProfile(),
         Setting(),
-        Feedback()
+        Feedback(),
+        Logout()
       ],
     );
   }
@@ -122,6 +127,56 @@ class Feedback extends StatelessWidget {
             style: TextStyle(fontSize: 17, color: Colors.black),
           ),
         ],
+      ),
+    );
+  }
+}
+
+
+class Logout extends StatelessWidget {
+  const Logout({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        var token = UserPreferences.getToken();
+
+        Dio dio = Dio();
+        dio.options.headers['content-Type'] = 'application/json';
+        dio.options.headers["authorization"] = "Token $token";
+
+        String url = "http://192.168.110.25:8000/api/account/logout/";
+        Map<String,dynamic> map = {};
+
+        Response response = await dio.post(url, data: map);
+        Map<String,dynamic> data = response.data;
+        if (data["err"] == null) {
+          await UserPreferences.setToken("");
+        }
+        Get.back();
+        Get.to(const MyStatefulWidget());
+      },
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Colors.grey, width: 0.3)),
+        child: Row(
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              child: const Icon(
+                Icons.exit_to_app_outlined,
+                color: Colors.blue,
+              ),
+            ),
+            const Text(
+              "退出登录",
+              style: TextStyle(fontSize: 17, color: Colors.black),
+            ),
+          ],
+        ),
       ),
     );
   }

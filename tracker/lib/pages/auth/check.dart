@@ -126,6 +126,8 @@ class _CheckPageState extends State<CheckPage> {
                     Map<String,dynamic> data = response.data;
                     if (data["data"] != null) {
                       await UserPreferences.setToken(data["data"]["token"]);
+                      Get.back();
+                      Get.back();
                       Get.to(const MyStatefulWidget());
                     }
                   }
