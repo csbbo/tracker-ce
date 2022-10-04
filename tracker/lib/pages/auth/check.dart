@@ -1,7 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
+import 'package:tracker/common/utils/user_preference.dart';
 import 'package:tracker/components/opt_input.dart';
 import 'package:tracker/components/time_count_down.dart';
+import 'package:tracker/main.dart';
 
 class CheckPage extends StatefulWidget {
   const CheckPage({Key? key}) : super(key: key);
@@ -15,6 +18,17 @@ class _CheckPageState extends State<CheckPage> {
   final TextEditingController _secondController = TextEditingController();
   final TextEditingController _thirdController = TextEditingController();
   final TextEditingController _fourthController = TextEditingController();
+
+  Future applyCaptcha(String phoneNumber) async {
+    Dio dio = Dio();
+    dio.options.headers['content-Type'] = 'application/json';
+
+    String url = "http://192.168.110.25:8000/api/account/captcha/";
+    Map<String,dynamic> map = {};
+    map['phone_number']=phoneNumber;
+
+    await dio.post(url, data: map);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +84,9 @@ class _CheckPageState extends State<CheckPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  child: TimeCountDown(onTimeStart: () {}, onTimeFinish: () {}, countDownTime: 60),
+                  child: TimeCountDown(onTimeStart: () async {
+                    await applyCaptcha(phoneNumber);
+                  }, onTimeFinish: () {}, countDownTime: 60),
                 ),
               ],
             ),
@@ -82,8 +98,9 @@ class _CheckPageState extends State<CheckPage> {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  if (_firstController.text == "" || _secondController.text == "" || _thirdController.text == "" || _fourthController.text == "") {
+                onPressed: () async {
+                  String captcha = "${_firstController.text}${_secondController.text}${_thirdController.text}${_fourthController.text}";
+                  if (captcha.length < 4) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: const Text("请输入完整验证码"),
@@ -94,7 +111,23 @@ class _CheckPageState extends State<CheckPage> {
                       ),
                     );
                   } else {
-                    print("*"*100);
+                    var token = UserPreferences.getToken();
+
+                    Dio dio = Dio();
+                    dio.options.headers['content-Type'] = 'application/json';
+                    dio.options.headers["authorization"] = "Token $token";
+
+                    String url = "http://192.168.110.25:8000/api/account/login/";
+                    Map<String,dynamic> map = {};
+                    map['phone_number']=phoneNumber;
+                    map['captcha']=captcha;
+
+                    Response response = await dio.post(url, data: map);
+                    Map<String,dynamic> data = response.data;
+                    if (data["data"] != null) {
+                      await UserPreferences.setToken(data["data"]["token"]);
+                      Get.to(const MyStatefulWidget());
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(

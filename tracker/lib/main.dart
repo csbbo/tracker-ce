@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:tracker/pages/auth/login.dart';
 import 'package:tracker/pages/chat.dart';
 import 'package:tracker/pages/home.dart';
 import 'package:tracker/pages/person.dart';
@@ -35,6 +36,15 @@ class MyStatefulWidget extends StatefulWidget {
 
 class MyStatefulWidgetState extends State<MyStatefulWidget> {
   int selectedIndex = 0;
+  bool isLogin = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (UserPreferences.getToken() != "") {
+      isLogin = true;
+    }
+  }
 
   void onTapped(int index) {
     setState(() {
@@ -44,6 +54,9 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLogin != true) {
+      return const LoginPage();
+    }
     return Scaffold(
       body: Container(
         child: getBottomNavigationBarPage(selectedIndex),
