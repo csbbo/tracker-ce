@@ -151,9 +151,7 @@ class Logout extends StatelessWidget {
 
         Response response = await dio.post(url, data: map);
         Map<String,dynamic> data = response.data;
-        if (data["err"] == null) {
-          await UserPreferences.setToken("");
-        }
+        await UserPreferences.setToken("");
         Get.back();
         Get.to(const MyStatefulWidget());
       },

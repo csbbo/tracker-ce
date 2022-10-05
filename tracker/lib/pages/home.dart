@@ -150,7 +150,6 @@ class HotOperationRight extends StatelessWidget {
         flex: 1,
         child: InkWell(
           onTap: () {
-            Get.back();
             Get.to(const Publish());
           },
           child: Container(

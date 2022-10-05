@@ -6,28 +6,48 @@ class Publish extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("陈少波")
+        title: Text("")
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(0)
-              ),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: Colors.grey,
-                      width: 1
+          Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0)
                   ),
-                  borderRadius: BorderRadius.circular(0)
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Colors.grey,
+                          width: 1
+                      ),
+                      borderRadius: BorderRadius.circular(0)
+                  ),
+                  hintText: "填写标题",
+                ),
               ),
-              hintText: "在这里输入要发布内容...",
-            ),
-            keyboardType: TextInputType.multiline,
-            maxLines: 10,
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0)
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Colors.grey,
+                          width: 1
+                      ),
+                      borderRadius: BorderRadius.circular(0)
+                  ),
+                  hintText: "添加正文",
+                ),
+                keyboardType: TextInputType.multiline,
+                maxLines: 6,
+              ),
+            ],
           ),
           SizedBox(
             width: double.infinity,

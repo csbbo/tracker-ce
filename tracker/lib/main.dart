@@ -8,6 +8,7 @@ import 'package:tracker/pages/person.dart';
 import 'common/utils/user_preference.dart';
 
 // todo: 颜色统一风格
+// todo: 改类名
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserPreferences.init();
@@ -41,7 +42,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   void initState() {
     super.initState();
-    if (UserPreferences.getToken() != "") {
+    var token = UserPreferences.getToken();
+    if (token != "") {
       isLogin = true;
     }
   }
