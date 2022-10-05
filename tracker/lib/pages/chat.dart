@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tracker/common/color_style.dart';
 
 import 'package:tracker/components/contact.dart';
 
@@ -32,7 +33,12 @@ class ChatPage extends StatelessWidget {
       },
       {"name": "狭路相逢勇者胜", "message": "木秀于林，风必摧之", "avatar_url": ""}
     ];
-    return getContactList(contactDataList);
+    return Scaffold(
+      backgroundColor: ColorStyle.backgroundColor,
+      body: Container(
+        child: getContactList(contactDataList),
+      ),
+    );
   }
 }
 
@@ -48,7 +54,7 @@ Widget getContactList(List<Map> contactDataList) {
 
   if (contactList.isEmpty) {
     return const Center(
-      child: Text("一条消息都没有呢，快来加入聊天吧，哈哈哈!"),
+      child: Text("一条消息都没有呢，快发起聊天吧，哈哈哈!"),
     );
   }
   return ContactList(contactList);

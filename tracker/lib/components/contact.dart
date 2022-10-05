@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tracker/common/color_style.dart';
 
 import 'package:tracker/pages/chat_room.dart';
 
@@ -78,6 +79,7 @@ class _ContactListItemState extends State<ContactListItem> {
           horizontal: 3,
           vertical: 5,
         ),
+        decoration: const BoxDecoration(color: ColorStyle.secondBackgroundColor),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
