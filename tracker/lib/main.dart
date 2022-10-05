@@ -100,7 +100,7 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
         ),
       ],
       currentIndex: widget.selectedIndex,
-      selectedItemColor: Colors.green,
+      selectedItemColor: Colors.blueAccent,
       unselectedItemColor: Colors.grey,
       iconSize: 25.0,
       onTap: widget.onTapped,

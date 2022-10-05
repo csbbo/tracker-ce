@@ -1,21 +1,37 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:tracker/common/color_style.dart';
 import 'package:tracker/common/utils/user_preference.dart';
 import 'package:tracker/main.dart';
+
+class Constant {
+  static double itemHeight = 50;
+  static double itemBorderRadius = 8;
+  static const double itemFontSize = 18;
+}
 
 class PersonPage extends StatelessWidget {
   const PersonPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const <Widget>[
-        PersonProfile(),
-        Setting(),
-        Feedback(),
-        Logout()
-      ],
+    return Scaffold(
+      backgroundColor: ColorStyle.backgroundColor,
+      body: Container(
+        margin: const EdgeInsets.only(top: 4),
+        child: Column(
+          children: <Widget>[
+            const PersonProfile(),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 5),
+              child: Column(
+                children: const [AppFunctionCollection(), Logout()],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
@@ -26,19 +42,17 @@ class PersonProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: 100,
       height: 150,
       padding: const EdgeInsets.symmetric(
         horizontal: 5,
-        vertical: 20,
+        vertical: 30,
       ),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey, width: 0.3)),
+      decoration: const BoxDecoration(color: ColorStyle.secondBackgroundColor),
       child: Row(
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-                "https://img.syt5.com/2021/0826/20210826091719959.jpg.420.420.jpg"),
+            child: Image.network("https://img.syt5.com/2021/0826/20210826091719959.jpg.420.420.jpg"),
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -48,15 +62,17 @@ class PersonProfile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
-                Text("狭路相逢勇者胜",
-                    style: TextStyle(
-                      fontSize: 25,
-                    )),
+                Text(
+                  "balabala 昵称",
+                  style: TextStyle(
+                    fontSize: 25
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "木秀于林，风必摧之",
+                  "写下你的个性签名吧",
                   style: TextStyle(
                     fontSize: 15,
                   ),
@@ -71,34 +87,16 @@ class PersonProfile extends StatelessWidget {
   }
 }
 
-class Setting extends StatelessWidget {
-  const Setting({Key? key}) : super(key: key);
+class AppFunctionCollection extends StatelessWidget {
+  const AppFunctionCollection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 40,
-        margin: const EdgeInsets.symmetric(
-          vertical: 40,
-        ),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.grey, width: 0.3)),
-        child: Row(
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              child: const Icon(
-                Icons.settings_outlined,
-                color: Colors.blue,
-              ),
-            ),
-            const Text(
-              "设置",
-              style: TextStyle(fontSize: 17, color: Colors.black),
-            ),
-          ],
-        )
+      margin: const EdgeInsets.only(top: 30),
+      child: Column(
+        children: const [Feedback(), About(), Setting()],
+      ),
     );
   }
 }
@@ -109,22 +107,21 @@ class Feedback extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.grey, width: 0.3)),
+      height: Constant.itemHeight,
+      decoration: const BoxDecoration(
+          color: Colors.white, border: Border(bottom: BorderSide(width: 0.5, color: ColorStyle.borderColor))),
       child: Row(
         children: <Widget>[
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 10),
             child: const Icon(
-              Icons.feedback_outlined,
-              color: Colors.blue,
+              Icons.edit,
+              color: Color(0xffffab00),
             ),
           ),
           const Text(
             "反馈",
-            style: TextStyle(fontSize: 17, color: Colors.black),
+            style: TextStyle(fontSize: Constant.itemFontSize, color: Colors.black),
           ),
         ],
       ),
@@ -132,6 +129,59 @@ class Feedback extends StatelessWidget {
   }
 }
 
+class About extends StatelessWidget {
+  const About({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: Constant.itemHeight,
+      decoration: const BoxDecoration(
+          color: Colors.white, border: Border(bottom: BorderSide(width: 0.5, color: ColorStyle.borderColor))),
+      child: Row(
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: const Icon(
+              Icons.error,
+              color: Color(0xff5c6bc0),
+            ),
+          ),
+          const Text(
+            "关于",
+            style: TextStyle(fontSize: Constant.itemFontSize, color: Colors.black),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Setting extends StatelessWidget {
+  const Setting({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: Constant.itemHeight,
+        decoration: const BoxDecoration(color: ColorStyle.secondBackgroundColor),
+        child: Row(
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              child: const Icon(
+                Icons.settings,
+                color: Colors.blue,
+              ),
+            ),
+            const Text(
+              "设置",
+              style: TextStyle(fontSize: Constant.itemFontSize, color: Colors.black),
+            ),
+          ],
+        ));
+  }
+}
 
 class Logout extends StatelessWidget {
   const Logout({Key? key}) : super(key: key);
@@ -147,31 +197,27 @@ class Logout extends StatelessWidget {
         dio.options.headers["authorization"] = "Token $token";
 
         String url = "http://192.168.110.25:8000/api/account/logout/";
-        Map<String,dynamic> map = {};
+        Map<String, dynamic> map = {};
 
         Response response = await dio.post(url, data: map);
-        Map<String,dynamic> data = response.data;
+        Map<String, dynamic> data = response.data;
         await UserPreferences.setToken("");
         Get.back();
         Get.to(const MainPage());
       },
       child: Container(
-        height: 40,
+        height: Constant.itemHeight,
+        margin: const EdgeInsets.only(top: 30),
         decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.grey, width: 0.3)),
+          color: ColorStyle.secondBackgroundColor,
+          borderRadius: BorderRadius.circular(Constant.itemBorderRadius),
+        ),
         child: Row(
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              child: const Icon(
-                Icons.exit_to_app_outlined,
-                color: Colors.blue,
-              ),
-            ),
-            const Text(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[
+            Text(
               "退出登录",
-              style: TextStyle(fontSize: 17, color: Colors.black),
+              style: TextStyle(fontSize: Constant.itemFontSize, color: ColorStyle.textColor),
             ),
           ],
         ),
