@@ -5,9 +5,9 @@ import 'package:tracker/pages/chat.dart';
 import 'package:tracker/pages/home.dart';
 import 'package:tracker/pages/person.dart';
 
+import 'common/color_style.dart';
 import 'common/utils/user_preference.dart';
 
-// todo: 颜色统一风格
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserPreferences.init();
@@ -20,10 +20,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: MainPage()
-    );
+    return const GetMaterialApp(debugShowCheckedModeBanner: false, home: MainPage());
   }
 }
 
@@ -62,7 +59,10 @@ class _MainPageState extends State<MainPage> {
       body: Container(
         child: getBottomNavigationBarPage(selectedIndex),
       ),
-      bottomNavigationBar: MainBottomNavigationBar(selectedIndex: selectedIndex, onTapped: onTapped,),
+      bottomNavigationBar: MainBottomNavigationBar(
+        selectedIndex: selectedIndex,
+        onTapped: onTapped,
+      ),
     );
   }
 }
@@ -85,22 +85,22 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
+          icon: widget.selectedIndex == 0 ? Icon(Icons.home) : Icon(Icons.home_outlined),
           label: "首页",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.chat_bubble_outline),
+          icon: widget.selectedIndex == 1 ? Icon(Icons.chat_bubble) : Icon(Icons.chat_bubble_outline),
           label: "消息",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
+          icon: widget.selectedIndex == 2 ? Icon(Icons.person) : Icon(Icons.person_outline),
           label: "我的",
         ),
       ],
       currentIndex: widget.selectedIndex,
-      selectedItemColor: Colors.blueAccent,
+      selectedItemColor: ColorStyle.mainColor,
       unselectedItemColor: Colors.grey,
       iconSize: 25.0,
       onTap: widget.onTapped,
