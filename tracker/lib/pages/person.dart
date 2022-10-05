@@ -153,7 +153,7 @@ class Logout extends StatelessWidget {
         Map<String,dynamic> data = response.data;
         await UserPreferences.setToken("");
         Get.back();
-        Get.to(const MyStatefulWidget());
+        Get.to(const MainPage());
       },
       child: Container(
         height: 40,

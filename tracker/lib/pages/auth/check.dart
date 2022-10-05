@@ -128,7 +128,7 @@ class _CheckPageState extends State<CheckPage> {
                       await UserPreferences.setToken(data["data"]["token"]);
                       Get.back();
                       Get.back();
-                      Get.to(const MyStatefulWidget());
+                      Get.to(const MainPage());
                     }
                   }
                 },
