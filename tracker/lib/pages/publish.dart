@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tracker/common/color_style.dart';
 
 class Publish extends StatelessWidget {
   const Publish({Key? key}) : super(key: key);
@@ -7,8 +9,16 @@ class Publish extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: ColorStyle.backgroundColor,
       appBar: AppBar(
-        title: Text("")
+        backgroundColor: ColorStyle.secondBackgroundColor,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () => Get.back(),
+        ),
+        iconTheme: IconThemeData(
+          color: Color(0xffbdbdbd),
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
