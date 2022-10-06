@@ -118,6 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       height: 52,
                       child: TextField(
+                        // todo: 这里controller使用有些bug, 将光标移到开头，一输入立马又会调到末尾
                         controller: phoneNumberInputController..text=phoneNumber..selection=TextSelection.fromPosition(TextPosition(offset: phoneNumber.length)),
                         decoration: InputDecoration(
                           fillColor: const Color(0xA8DADADA),

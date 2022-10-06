@@ -4,6 +4,7 @@ import 'package:get/get.dart' hide Response;
 import 'package:tracker/common/color_style.dart';
 import 'package:tracker/common/utils/user_preference.dart';
 import 'package:tracker/main.dart';
+import 'package:tracker/pages/auth/login.dart';
 
 class Constant {
   static double itemHeight = 50;
@@ -191,19 +192,25 @@ class Logout extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         var token = UserPreferences.getToken();
+        // todo: 需要统一封装网络请求处理各种异常
+        try {
+          Dio dio = Dio();
+          dio.options.headers['content-Type'] = 'application/json';
+          dio.options.headers["authorization"] = "Token $token";
 
-        Dio dio = Dio();
-        dio.options.headers['content-Type'] = 'application/json';
-        dio.options.headers["authorization"] = "Token $token";
+          String url = "http://192.168.110.25:8000/api/account/logout/";
+          Map<String, dynamic> map = {};
 
-        String url = "http://192.168.110.25:8000/api/account/logout/";
-        Map<String, dynamic> map = {};
+          Response response = await dio.post(url, data: map);
+          Map<String, dynamic> data = response.data;
 
-        Response response = await dio.post(url, data: map);
-        Map<String, dynamic> data = response.data;
-        await UserPreferences.setToken("");
+          await UserPreferences.setToken("");
+        } catch (e, stack) {
+          print(stack);
+        }
+        // todo: 这里Get back未按预期执行，跳转LoginPage后返回还是返回到MainPage
         Get.back();
-        Get.to(const MainPage());
+        Get.to(const LoginPage());
       },
       child: Container(
         height: Constant.itemHeight,

@@ -72,6 +72,7 @@ class _CheckPageState extends State<CheckPage> {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // todo: 有些bug，输入一半时候无法删除。希望能够输入完成后自动登录无需点击登录按钮
                 children: [
                   OtpInput(_firstController, 1),
                   OtpInput(_secondController, 2),
