@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tracker/common/color_style.dart';
 import 'package:tracker/pages/auth/login.dart';
 import 'package:tracker/pages/publish.dart';
 
@@ -10,19 +11,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TopPanel(),
-        HotOperation(),
-        Container(
-          child: ElevatedButton(
-              onPressed: () {
-                Get.to(LoginPage());
-              },
-              child: Text("临时跳转登录页")
-          ),
-        )
-      ]
+    return Scaffold(
+      backgroundColor: ColorStyle.backgroundColor,
+      body: Column(
+          children: [
+            TopPanel(),
+            HotOperation(),
+          ]
+      ),
     );
   }
 }
@@ -33,45 +29,24 @@ class TopPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(
-                    "https://tenfei02.cfp.cn/creative/vcg/800/new/VCG211275464206.jpg"),
-                fit: BoxFit.fill)),
-        height: 230,
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Container(
-                    child: const Icon(
-                      Icons.message_outlined,
-                      color: Colors.blue,
-                    ),
-                  )
-                ],
-              ),
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
-                    Text(
-                      "永泰园",
-                      style: TextStyle(fontSize: 27),
-                    ),
-                    Text("东经: 119.23  北纬: 23.46")
-                  ],
-                ),
-              )
-            ],
+      height: 230,
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage("https://tracker-be.oss-cn-beijing.aliyuncs.com/static/VCG211275464206.jpg"),
+              fit: BoxFit.fill)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          Text(
+            "永泰园",
+            style: TextStyle(fontSize: 27),
           ),
-        ));
+          Text("东经: 119.23  北纬: 23.46")
+        ],
+      ),
+    );
   }
 }
 
@@ -123,11 +98,11 @@ class HotOperationLeft extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 6, horizontal: 6),
                   decoration: const BoxDecoration(
-                      color: Colors.blue,
+                      color: ColorStyle.mainColor,
                       borderRadius:
                       BorderRadius.all(Radius.circular(15))),
                   child:
-                  const Icon(Icons.location_on, color: Colors.white),
+                  const Icon(Icons.search_rounded, color: Colors.white),
                 ),
                 const Text(
                   "探索周边",
@@ -167,7 +142,7 @@ class HotOperationRight extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 6, horizontal: 6),
                   decoration: const BoxDecoration(
-                      color: Colors.blue,
+                      color: ColorStyle.mainColor,
                       borderRadius:
                       BorderRadius.all(Radius.circular(15))),
                   child: const Icon(Icons.camera, color: Colors.white),
