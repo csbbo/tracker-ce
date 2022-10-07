@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:tracker/common/utils/http_utils.dart';
 import 'package:tracker/common/utils/pref_utils.dart';
 import 'package:tracker/components/opt_input.dart';
 import 'package:tracker/components/time_count_down.dart';
@@ -112,25 +113,21 @@ class _CheckPageState extends State<CheckPage> {
                       ),
                     );
                   } else {
-                    var token = UserPreferences.getToken();
-
-                    Dio dio = Dio();
-                    dio.options.headers['content-Type'] = 'application/json';
-                    dio.options.headers["authorization"] = "Token $token";
-
-                    String url = "http://192.168.110.25:8000/api/account/login/";
-                    Map<String,dynamic> map = {};
-                    map['phone_number']=phoneNumber;
-                    map['captcha']=captcha;
-
-                    Response response = await dio.post(url, data: map);
-                    Map<String,dynamic> data = response.data;
-                    if (data["data"] != null) {
-                      await UserPreferences.setToken(data["data"]["token"]);
-                      Get.back();
-                      Get.back();
-                      Get.to(const MainPage());
-                    }
+                    Http http = Http();
+                    http.post("/api/account/login/", {
+                      "phone_number": phoneNumber,
+                      "captcha": captcha
+                    }, success: (resp) {
+                      if (resp["err"] == null) {
+                        UserPreferences.setToken(resp["data"]["token"]);
+                        // todo: 出入栈也不对
+                        Get.back();
+                        Get.back();
+                        Get.to(const MainPage());
+                      } else {
+                        resp["msg"];
+                      }
+                    });
                   }
                 },
                 style: ElevatedButton.styleFrom(

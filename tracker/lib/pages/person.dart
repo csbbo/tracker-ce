@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:tracker/common/color_style.dart';
+import 'package:tracker/common/utils/http_utils.dart';
 import 'package:tracker/common/utils/pref_utils.dart';
 import 'package:tracker/main.dart';
 import 'package:tracker/pages/auth/login.dart';
@@ -191,24 +192,17 @@ class Logout extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        var token = UserPreferences.getToken();
-        // todo: 需要统一封装网络请求处理各种异常
-        try {
-          Dio dio = Dio();
-          dio.options.headers['content-Type'] = 'application/json';
-          dio.options.headers["authorization"] = "Token $token";
+        Http http = Http();
+        http.post("/api/account/logout/", {}, success: (resp) {
+          if (resp["err"] == null) {
+            UserPreferences.setToken("");
+          } else {
+            resp["data"]["msg"];
+          }
+        });
 
-          String url = "http://192.168.110.25:8000/api/account/logout/";
-          Map<String, dynamic> map = {};
-
-          Response response = await dio.post(url, data: map);
-          Map<String, dynamic> data = response.data;
-
-          await UserPreferences.setToken("");
-        } catch (e, stack) {
-          print(stack);
-        }
-        // todo: 这里Get back未按预期执行，跳转LoginPage后返回还是返回到MainPage
+        // todo: 出入栈也不对
+        Get.back();
         Get.back();
         Get.to(const LoginPage());
       },
