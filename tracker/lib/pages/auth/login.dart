@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:tracker/pages/auth/carrier_service_protocol.dart';
 import 'package:tracker/pages/auth/check.dart';
 
-import 'package:tracker/common/utils/user_preference.dart';
+import 'package:tracker/common/utils/pref_utils.dart';
 import 'package:tracker/pages/auth/privacy_policy.dart';
 import 'package:tracker/pages/auth/user_protocol.dart';
 

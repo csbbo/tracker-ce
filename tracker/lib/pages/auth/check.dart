@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
-import 'package:tracker/common/utils/user_preference.dart';
+import 'package:tracker/common/utils/pref_utils.dart';
 import 'package:tracker/components/opt_input.dart';
 import 'package:tracker/components/time_count_down.dart';
 import 'package:tracker/main.dart';

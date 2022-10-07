@@ -6,7 +6,7 @@ import 'package:tracker/pages/home.dart';
 import 'package:tracker/pages/person.dart';
 
 import 'common/color_style.dart';
-import 'common/utils/user_preference.dart';
+import 'common/utils/pref_utils.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

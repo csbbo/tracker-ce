@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:tracker/common/color_style.dart';
-import 'package:tracker/common/utils/user_preference.dart';
+import 'package:tracker/common/utils/pref_utils.dart';
 import 'package:tracker/main.dart';
 import 'package:tracker/pages/auth/login.dart';
 
