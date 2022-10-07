@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:tracker/pages/auth/login.dart';
 import 'package:tracker/pages/chat.dart';
@@ -11,6 +12,8 @@ import 'common/utils/pref_utils.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserPreferences.init();
+  // 申请位置权限
+  Geolocator.requestPermission();
 
   runApp(const MyApp());
 }

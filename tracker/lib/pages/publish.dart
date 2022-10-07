@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:tracker/common/color_style.dart';
 import 'package:tracker/common/dialog.dart';
@@ -76,12 +77,23 @@ class _PublishState extends State<Publish> {
             width: double.infinity,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {
-                Http http = Http();
-                http.post("/api/social/moment/", {
+              onPressed: () async {
+                Map<String, dynamic> data = {
                   "title": titleInputController.text,
                   "content": contentInputController.text
-                }, success: (resp) {
+                };
+
+                Position? position = await Geolocator.getCurrentPosition();
+                data["longitude"] = position.longitude.toDouble();
+                data["latitude"] = position.latitude.toDouble();
+                data["altitude"] = position.altitude.toDouble();
+
+
+                print(data);
+                print("*"*100);
+
+                Http http = Http();
+                http.post("/api/social/moment/", data, success: (resp) {
                   if (resp["err"] == null) {
                     // todo: 不知道为啥不执行
                     Get.back();

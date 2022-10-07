@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:tracker/common/color_style.dart';
+import 'package:tracker/common/utils/geo_utils.dart';
 import 'package:tracker/pages/auth/login.dart';
 import 'package:tracker/pages/publish.dart';
 
@@ -23,8 +27,34 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class TopPanel extends StatelessWidget {
+class TopPanel extends StatefulWidget {
   const TopPanel({Key? key}) : super(key: key);
+
+  @override
+  State<TopPanel> createState() => _TopPanelState();
+}
+
+class _TopPanelState extends State<TopPanel> {
+  String latitude = "-";
+  String longitude = "-";
+  String altitude = "-";
+
+  @override
+  void initState() {
+    super.initState();
+
+    const LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 100,
+    );
+    StreamSubscription<Position> positionStream = Geolocator.getPositionStream(
+        locationSettings: locationSettings).listen((Position? position) {
+          print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
+          latitude = position!.latitude.toString();
+          longitude = position.longitude.toString();
+          altitude = position.altitude.toString();
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +68,12 @@ class TopPanel extends StatelessWidget {
               fit: BoxFit.fill)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const <Widget>[
+        children: <Widget>[
           Text(
             "永泰园",
             style: TextStyle(fontSize: 27),
           ),
-          Text("东经: 119.23  北纬: 23.46")
+          Text("经度: $longitude\n纬度: $latitude\n海拔: $altitude")
         ],
       ),
     );
