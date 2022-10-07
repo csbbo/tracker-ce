@@ -7,6 +7,7 @@ import 'package:tracker/pages/home.dart';
 import 'package:tracker/pages/person.dart';
 
 import 'common/color_style.dart';
+import 'common/utils/http_utils.dart';
 import 'common/utils/pref_utils.dart';
 
 Future main() async {
@@ -36,15 +37,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
-  bool isLogin = false;
 
   @override
   void initState() {
     super.initState();
-    var token = UserPreferences.getToken();
-    if (token != "") {
-      isLogin = true;
-    }
   }
 
   void onTapped(int index) {
@@ -55,7 +51,16 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (isLogin != true) {
+    var token = UserPreferences.getToken();
+
+    Http http = Http();
+    http.get("/api/account/profile/", {}, success: (resp) {
+      if (resp["err"] != null) {
+        UserPreferences.setToken("");
+      }
+    });
+
+    if (token == "") {
       return const LoginPage();
     }
     return Scaffold(

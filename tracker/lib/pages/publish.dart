@@ -45,7 +45,9 @@ class _PublishState extends State<Publish> {
             children: [
               Container(
                 margin: const EdgeInsets.only(top: 5),
-                decoration: const BoxDecoration(color: ColorStyle.secondBackgroundColor, border: Border(bottom: BorderSide(width: 0.5, color: ColorStyle.borderColor))),
+                decoration: const BoxDecoration(
+                    color: ColorStyle.secondBackgroundColor,
+                    border: Border(bottom: BorderSide(width: 0.5, color: ColorStyle.borderColor))),
                 child: TextField(
                   controller: titleInputController,
                   decoration: const InputDecoration(
@@ -58,10 +60,12 @@ class _PublishState extends State<Publish> {
                 ),
               ),
               Container(
-                decoration: const BoxDecoration(color: ColorStyle.secondBackgroundColor, border: Border(bottom: BorderSide(width: 0.5, color: ColorStyle.borderColor))),
+                decoration: const BoxDecoration(
+                    color: ColorStyle.secondBackgroundColor,
+                    border: Border(bottom: BorderSide(width: 0.5, color: ColorStyle.borderColor))),
                 child: TextField(
                   controller: contentInputController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                     ),
@@ -88,17 +92,13 @@ class _PublishState extends State<Publish> {
                 data["latitude"] = position.latitude.toDouble();
                 data["altitude"] = position.altitude.toDouble();
 
-
-                print(data);
-                print("*"*100);
-
                 Http http = Http();
                 http.post("/api/social/moment/", data, success: (resp) {
                   if (resp["err"] == null) {
                     // todo: 不知道为啥不执行
                     Get.back();
                   } else {
-                    dialog(context, "发布失败",  resp["msg"]);
+                    dialog(context, "发布失败", resp["msg"]);
                   }
                 });
               },

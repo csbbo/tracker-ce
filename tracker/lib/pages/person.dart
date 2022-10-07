@@ -43,6 +43,9 @@ class PersonProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var name = UserPreferences.getName();
+    var signature = UserPreferences.getSignature();
+
     return Container(
       height: 150,
       padding: const EdgeInsets.symmetric(
@@ -63,19 +66,17 @@ class PersonProfile extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
+              children: [
                 Text(
-                  "balabala 昵称",
-                  style: TextStyle(
-                    fontSize: 25
-                  ),
+                  name! == "" ? "路人甲" : name,
+                  style: const TextStyle(fontSize: 25),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "写下你的个性签名吧",
-                  style: TextStyle(
+                  signature! == "" ? "你还没有填写个性签名" : signature,
+                  style: const TextStyle(
                     fontSize: 15,
                   ),
                   overflow: TextOverflow.ellipsis,

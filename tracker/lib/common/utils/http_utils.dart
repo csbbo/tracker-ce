@@ -33,7 +33,10 @@ class Http {
   }
 
   Future<void> get(String uri, Map<String, dynamic> params, {Success? success, Fail? fail, After? after}) {
-    _dio?.get(uri, queryParameters: params).then((response) {
+    var token = UserPreferences.getToken();
+    _dio?.options.headers["Authorization"] = "Token $token";
+
+    _dio?.get("$_host$uri", queryParameters: params).then((response) {
       if (response.statusCode == 200) {
         if (success != null) {
           success(response.data);

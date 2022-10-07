@@ -119,7 +119,16 @@ class _CheckPageState extends State<CheckPage> {
                       "captcha": captcha
                     }, success: (resp) {
                       if (resp["err"] == null) {
-                        UserPreferences.setToken(resp["data"]["token"]);
+                        var data = resp["data"];
+
+                        UserPreferences.setToken(data["token"]);
+                        UserPreferences.setName(data["name"]);
+                        UserPreferences.setUsername(data["username"]);
+                        UserPreferences.setSignature(data["signature"]);
+                        UserPreferences.setCreateTime(data["create_time"]);
+                        UserPreferences.setUpdateTime(data["update_time"]);
+                        UserPreferences.setLastLoginTime(data["last_login_time"]);
+
                         // todo: 出入栈也不对
                         Get.back();
                         Get.back();
