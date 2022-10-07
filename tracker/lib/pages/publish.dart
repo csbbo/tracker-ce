@@ -13,10 +13,10 @@ class Publish extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ColorStyle.secondBackgroundColor,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Get.back(),
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Color(0xffbdbdbd),
         ),
       ),
@@ -24,39 +24,9 @@ class Publish extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(0)
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.grey,
-                          width: 1
-                      ),
-                      borderRadius: BorderRadius.circular(0)
-                  ),
-                  hintText: "填写标题",
-                ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(0)
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.grey,
-                          width: 1
-                      ),
-                      borderRadius: BorderRadius.circular(0)
-                  ),
-                  hintText: "添加正文",
-                ),
-                keyboardType: TextInputType.multiline,
-                maxLines: 6,
-              ),
+            children: const [
+              Title(),
+              Content()
             ],
           ),
           SizedBox(
@@ -64,12 +34,14 @@ class Publish extends StatelessWidget {
             height: 50,
             child: ElevatedButton(
               onPressed: () {},
-              child: Text("发布", style: TextStyle(fontSize: 18),),
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: const Color(0xff00897b),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(0.0),
-                  )
+                  )),
+              child: const Text(
+                "发布",
+                style: TextStyle(fontSize: 18),
               ),
             ),
           )
@@ -79,3 +51,45 @@ class Publish extends StatelessWidget {
   }
 }
 
+class Title extends StatelessWidget {
+  const Title({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 5),
+      decoration: const BoxDecoration(color: ColorStyle.secondBackgroundColor, border: Border(bottom: BorderSide(width: 0.5, color: ColorStyle.borderColor))),
+      child: const TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: null,
+          hintText: "填写标题",
+        ),
+      ),
+    );
+  }
+}
+
+
+class Content extends StatelessWidget {
+  const Content({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(color: ColorStyle.secondBackgroundColor, border: Border(bottom: BorderSide(width: 0.5, color: ColorStyle.borderColor))),
+      child: const TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+          ),
+          hintText: "添加正文",
+        ),
+        keyboardType: TextInputType.multiline,
+        maxLines: 6,
+      ),
+    );
+  }
+}
