@@ -43,17 +43,19 @@ class _TopPanelState extends State<TopPanel> {
   void initState() {
     super.initState();
 
-    const LocationSettings locationSettings = LocationSettings(
-      accuracy: LocationAccuracy.high,
-      distanceFilter: 100,
-    );
-    StreamSubscription<Position> positionStream = Geolocator.getPositionStream(
-        locationSettings: locationSettings).listen((Position? position) {
-          print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
-          latitude = position!.latitude.toString();
-          longitude = position.longitude.toString();
-          altitude = position.altitude.toString();
-        });
+    setState(() {
+      const LocationSettings locationSettings = LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 100,
+      );
+      StreamSubscription<Position> positionStream = Geolocator.getPositionStream(
+          locationSettings: locationSettings).listen((Position? position) {
+        print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
+        latitude = position!.latitude.toString();
+        longitude = position.longitude.toString();
+        altitude = position.altitude.toString();
+      });
+    });
   }
 
   @override
